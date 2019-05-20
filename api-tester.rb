@@ -9,7 +9,8 @@ storage = []
 
 post '/' do
   data = {
-    body: request.body,
+    request: 'POST',
+    body: request.body.string,
     params: params
   }
   storage.push data
@@ -18,5 +19,16 @@ post '/' do
 end
 
 get '/' do
+  data = {
+    request: 'GET',
+    body: request.body.string,
+    params: params
+  }
+  storage.push data
+
+  304
+end
+
+get '/get_results' do
   storage.to_json
 end
