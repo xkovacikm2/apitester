@@ -30,5 +30,5 @@ get '/' do
 end
 
 get '/get_results' do
-  storage.to_json
+  JSON.pretty_generate(storage)
 end
