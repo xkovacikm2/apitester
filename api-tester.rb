@@ -10,7 +10,7 @@ storage = []
 post '/' do
   data = {
     request: 'POST',
-    body: request.body.string,
+    body: process_body(request.body.string),
     params: params
   }
   storage.push data
@@ -21,7 +21,7 @@ end
 get '/' do
   data = {
     request: 'GET',
-    body: request.body.string,
+    body: process_body(request.body.string),
     params: params
   }
   storage.push data
@@ -30,5 +30,11 @@ get '/' do
 end
 
 get '/get_results' do
-  JSON.pretty_generate(storage)
+  "<pre>
+  #{JSON.pretty_generate storage}
+  </pre>"
+end
+
+def process_body(body)
+  JSON.parse body rescue body
 end
