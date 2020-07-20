@@ -29,6 +29,11 @@ get '/' do
   304
 end
 
+get '/flush' do
+  storage = []
+  "Storage flushed, enjoy clear screen"
+end
+
 get '/get_results' do
   "<pre>
   #{JSON.pretty_generate storage}
