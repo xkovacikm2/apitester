@@ -1,0 +1,18 @@
+!!! 5
+%html
+    %head
+        %title API tester
+        %script{type: 'text/javascript', src: 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'}
+        %script{type: 'text/javascript', src: 'results.js'}
+    %body
+        %h1= "There are #{storage.count} requests:"
+        %section#requests 
+            - storage.each do |stored|
+                %subsection.stored
+                    .form
+                        %input{type: :text, name: :url, placeholder: 'http://localhost:4567'}
+                        %button{name: :send, onclick: 'resend(this)'} send
+                    %pre= sanitize stored
+                %br
+                %hr
+                %br
