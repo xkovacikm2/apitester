@@ -17,7 +17,16 @@ post '/' do
   data = {
     request: 'POST',
     body: process_body(request.body.string),
-    params: params
+    params: params,
+    headers: request
+      .each_header
+      .filter{|k,v| k.start_with?('HTTP_')}
+      .map{|k,v| [k.sub("HTTP_", ""),v]}
+      .to_h
+      .merge({
+        'Content-Type' => request.get_header('CONTENT_TYPE'),
+        'Content-Length' => request.get_header('CONTENT_LENGTH')
+      })
   }
   storage.push data
 
@@ -41,9 +50,15 @@ get '/flush' do
 end
 
 get '/get_results' do
-  haml :results, format: :html5, locals: {storage: storage.map{ |stored| JSON.pretty_generate stored} }
+  haml :results, format: :html5, locals: {storage: storage.map{ |stored| JSON.pretty_generate stored }}
 end
 
 def process_body(body)
   JSON.parse body rescue body
+end
+
+def sanitize(json)
+  json
+    .gsub('<', '&lt')
+    .gsub('>', '&gt')
 end

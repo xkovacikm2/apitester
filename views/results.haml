@@ -11,8 +11,8 @@
                 %subsection.stored
                     .form
                         %input{type: :text, name: :url, placeholder: 'http://localhost:4567'}
-                        %button{name: :send} send
-                    %pre= stored
+                        %button{name: :send, onclick: 'resend(this)'} send
+                    %pre= sanitize stored
                 %br
                 %hr
                 %br
