@@ -14,7 +14,7 @@ function resend(e) {
         {
             url: url, 
             type: requestDataJson['request'], 
-            data: requestDataJson['body'], 
+            data: JSON.stringify(requestDataJson['body']), 
             headers: requestDataJson['headers'], 
             contentType: requestDataJson['headers']['Content-Type'], 
             complete: function(jqxhr, status){alert(status);}
