@@ -1,6 +1,8 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    daemons (1.4.0)
+    eventmachine (1.2.7)
     haml (5.1.2)
       temple (>= 0.8.0)
       tilt
@@ -8,15 +10,19 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     rack (2.2.3)
-    rack-protection (2.0.8.1)
+    rack-protection (2.1.0)
       rack
-    ruby2_keywords (0.0.2)
-    sinatra (2.0.8.1)
+    ruby2_keywords (0.0.5)
+    sinatra (2.1.0)
       mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.8.1)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
       tilt (~> 2.0)
     temple (0.8.2)
+    thin (1.8.1)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0, >= 1.0.4)
+      rack (>= 1, < 3)
     tilt (2.0.10)
 
 PLATFORMS
@@ -25,7 +31,8 @@ PLATFORMS
 DEPENDENCIES
   haml
   json
-  sinatra
+  sinatra (~> 2.1)
+  thin (~> 1.8)
 
 BUNDLED WITH
-   2.1.0.pre.2
+   2.2.22

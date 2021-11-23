@@ -6,6 +6,7 @@
         %script{type: 'text/javascript', src: 'results.js'}
     %body
         %h1= "There are #{storage.count} requests:"
+        %a{href: "/flush"} Flush requests
         %section#requests 
             - storage.each.with_index(1) do |stored, idx|
                 %subsection.stored{id: "request-#{idx}"}

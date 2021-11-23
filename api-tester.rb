@@ -13,6 +13,26 @@ set :bind, '0.0.0.0'
 
 storage = []
 
+put '/' do
+  data = {
+    request: 'PUT',
+    body: process_body(request.body.string),
+    params: params,
+    headers: request
+      .each_header
+      .filter{|k,v| k.start_with?('HTTP_')}
+      .map{|k,v| [k.sub("HTTP_", ""),v]}
+      .to_h
+      .merge({
+               'Content-Type' => request.get_header('CONTENT_TYPE'),
+               'Content-Length' => request.get_header('CONTENT_LENGTH')
+             })
+  }
+  storage.push data
+
+  request.body.to_json
+end
+
 post '/' do
   data = {
     request: 'POST',
@@ -46,7 +66,7 @@ end
 
 get '/flush' do
   storage = []
-  "Storage flushed, enjoy clear screen"
+  haml :flush, format: :html5
 end
 
 get '/get_results' do
