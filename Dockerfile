@@ -6,7 +6,8 @@
 FROM ruby
 
 WORKDIR /app
-COPY . .
 RUN gem install bundler
+COPY Gemfile Gemfile.lock ./
 RUN bundle install
+COPY . .
 CMD ruby api-tester.rb

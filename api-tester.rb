@@ -13,7 +13,16 @@ set :bind, '0.0.0.0'
 
 storage = []
 
-put '/' do
+get '/flush' do
+  storage = []
+  haml :flush, format: :html5
+end
+
+get '/get_results' do
+  haml :results, format: :html5, locals: {storage: storage.map{ |stored| JSON.pretty_generate stored }}
+end
+
+put '/*' do
   data = {
     request: 'PUT',
     body: process_body(request.body.string),
@@ -33,7 +42,7 @@ put '/' do
   request.body.to_json
 end
 
-post '/' do
+post '/*' do
   data = {
     request: 'POST',
     body: process_body(request.body.string),
@@ -53,7 +62,7 @@ post '/' do
   request.body.to_json
 end
 
-get '/' do
+get '/*' do
   data = {
     request: 'GET',
     body: process_body(request.body.string),
@@ -61,16 +70,7 @@ get '/' do
   }
   storage.push data
 
-  304
-end
-
-get '/flush' do
-  storage = []
-  haml :flush, format: :html5
-end
-
-get '/get_results' do
-  haml :results, format: :html5, locals: {storage: storage.map{ |stored| JSON.pretty_generate stored }}
+  200
 end
 
 def process_body(body)
