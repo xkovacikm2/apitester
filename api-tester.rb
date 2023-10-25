@@ -25,6 +25,7 @@ end
 put '/*' do
   data = {
     request: 'PUT',
+    path: request.path,
     body: process_body(request.body.string),
     params: params,
     headers: request
@@ -45,6 +46,7 @@ end
 post '/*' do
   data = {
     request: 'POST',
+    path: request.path,
     body: process_body(request.body.string),
     params: params,
     headers: request
@@ -65,6 +67,7 @@ end
 get '/*' do
   data = {
     request: 'GET',
+    path: request.path,
     body: process_body(request.body.string),
     params: params
   }
