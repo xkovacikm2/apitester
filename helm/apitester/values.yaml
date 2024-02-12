@@ -11,14 +11,17 @@ image:
   tag: "latest"
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
 
 autoscaling:
   enabled: false
 
 ingress:
-  enabled: false
+  enabled: true
+  host: YOUR_HOST_NAME
+  className: nginx
+  annotations: {}
 
 imagePullSecrets: []
 podAnnotations: {}
